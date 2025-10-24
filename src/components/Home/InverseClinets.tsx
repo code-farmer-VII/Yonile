@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import "../Home/swipClients.css"
 import img1 from "../../assets/Image/Clients/image 66.png"
 import img2 from "../../assets/Image/Clients/image 67.png"

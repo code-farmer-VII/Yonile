@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import image_1 from "../../assets/Image/Portfolio/image 1.png";
-import image_2 from "../../assets/Image/Portfolio/image 2.png";
-import image_3 from "../../assets/Image/Portfolio/image 3.png";
+import image_1 from "../../assets/Image/Portfolio/image-1.png";
+import image_2 from "../../assets/Image/Portfolio/image-2.png";
+import image_3 from "../../assets/Image/Portfolio/image-3.png";
 
 const Portfolio: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('All Work [20]');

@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import "../Home/swipClients.css"
-import img1 from "../../assets/Image/Clients/image 66.png"
-import img2 from "../../assets/Image/Clients/image 67.png"
-import img3 from "../../assets/Image/Clients/image 68.png"
-import img4 from "../../assets/Image/Clients/image 69.png"
-import img5 from "../../assets/Image/Clients/image 70.png"
-import img6 from "../../assets/Image/Clients/image 71.png"
-import img7 from "../../assets/Image/Clients/image 72.png"
+import img1 from "../../assets/Image/Clients/image-66.png"
+import img2 from "../../assets/Image/Clients/image-67.png"
+import img3 from "../../assets/Image/Clients/image-68.png"
+import img4 from "../../assets/Image/Clients/image-69.png"
+import img5 from "../../assets/Image/Clients/image-70.png"
+import img6 from "../../assets/Image/Clients/image-71.png"
+import img7 from "../../assets/Image/Clients/image-72.png"
 
 
 const sliderData = [

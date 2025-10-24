@@ -1,9 +1,9 @@
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import img3 from '../../assets/Image/our-work/Rectangle 23871.png'
-import img4 from '../../assets/Image/our-work/Rectangle 23873.png'
-import img1 from '../../assets/Image/our-work/Rectangle 23876.png'
-import img2 from '../../assets/Image/our-work/Rectangle 23877.png'
+import img3 from '../../assets/Image/our-work/Rectangle-23871.png'
+import img4 from '../../assets/Image/our-work/Rectangle-23873.png'
+import img1 from '../../assets/Image/our-work/Rectangle-23876.png'
+import img2 from '../../assets/Image/our-work/Rectangle-23877.png'
 
 interface Project {
   title: string;

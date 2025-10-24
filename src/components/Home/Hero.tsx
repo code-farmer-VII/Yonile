@@ -1,8 +1,8 @@
 import React from 'react';
 import { Play } from 'lucide-react';
-import image_1 from "../../assets/Image/Hero/image 63.png"; 
-import image_2 from "../../assets/Image/Hero/image 64.png"
-import image_3 from "../../assets/Image/Hero/image 65.png"
+import image_1 from "../../assets/Image/Hero/image-63.png"; 
+import image_2 from "../../assets/Image/Hero/image-64.png"
+import image_3 from "../../assets/Image/Hero/image-65.png"
 
 
 const Hero: React.FC = () => {

@@ -27,7 +27,7 @@ const Testimonials: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 text-center">
             Testimonials
           </h2>
         </div>

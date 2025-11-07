@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -45,16 +46,24 @@ export default function Portfolio() {
             <p className="text-gray-400 leading-relaxed mb-8">
               From dynamic social media posts presents to immersive brand campaigns and events, we've brought ideas to life. Whether national, social, email, interactive in viral moments, video and beyond—each project delivers on 10 distinctive.
             </p>
-            <button className="group flex items-center gap-2 px-6 py-3 border border-white/20 rounded-lg hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center gap-2 px-6 py-3 border bg-blue-500 border-white/20 rounded-lg hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all"
+            >
               SHOW MORE
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </motion.button>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             {projects.slice(0, 2).map((project, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                whileHover={{ scale: 1.05 }}
                 className="group relative overflow-hidden rounded-2xl aspect-square bg-dark-card border border-white/10 hover:border-cyan-accent/50 transition-all"
               >
                 <img
@@ -68,19 +77,23 @@ export default function Portfolio() {
                     {project.category}
                   </span>
                   <h3 className="text-lg font-semibold">{project.title}</h3>
-                  <button className="flex items-center gap-1 text-sm text-gray-400 hover:text-cyan-accent transition-colors mt-2">
+                  <button className="flex items-center gap-1 text-sm text-white hover:text-cyan-accent transition-colors mt-2 bg-blue-500 rounded-lg px-3 ">
                     Read more <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {projects.slice(2).map((project, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
               className="group relative overflow-hidden rounded-2xl aspect-square bg-dark-card border border-white/10 hover:border-cyan-accent/50 transition-all"
             >
               <img
@@ -94,11 +107,11 @@ export default function Portfolio() {
                   {project.category}
                 </span>
                 <h3 className="text-base font-semibold">{project.title}</h3>
-                <button className="flex items-center gap-1 text-sm text-gray-400 hover:text-cyan-accent transition-colors mt-2">
+                <button className="flex items-center gap-1 text-sm text-white hover:text-cyan-accent transition-colors mt-2  bg-blue-500 rounded-lg px-3">
                   Read more <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

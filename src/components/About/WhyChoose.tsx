@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { Lightbulb, Layout, Users, Heart } from 'lucide-react';
 
 const features = [
@@ -24,38 +27,85 @@ const features = [
 ];
 
 export default function WhyChoose() {
+  // Framer Motion variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.9 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+  };
+
   return (
-    <section className="py-24 px-4">
+    <motion.section
+      className="py-24 px-4"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Why Choose <span className="gradient-text">Yonile</span>
+            Why Choose <span className="text-blue-bright">Yonile</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Think of us as more than an agency—we're your growth partners.
+            Think of us as more than an agency — we're your growth partners.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Feature Cards */}
+        <motion.div
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+        >
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={index}
-                className="bg-gradient-to-br from-dark-card to-dark-bg border border-white/10 rounded-2xl p-6 hover:border-cyan-accent/50 transition-all hover:scale-105"
+                className="relative bg-gradient-to-br from-blue-600/20 to-blue-900/40 p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full backdrop-blur-sm hover:transform hover:scale-105"
+                variants={cardVariants}
+                whileHover={{ scale: 1.07 }}
+                transition={{ type: 'spring', stiffness: 200 }}
               >
-                <div className="w-12 h-12 bg-cyan-accent/10 rounded-full flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-cyan-accent" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                {/* Icon */}
+                <motion.div
+                  className="w-14 h-14 bg-blue-bright/20 rounded-xl flex items-center justify-center text-blue-bright mb-6"
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                >
+                  <Icon className="w-6 h-6" />
+                </motion.div>
+
+                {/* Content */}
+                <h3 className="text-xl font-bold text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-white/60 leading-relaxed text-sm">
                   {feature.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

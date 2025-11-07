@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, Variants } from 'framer-motion';
 
 const Testimonials: React.FC = () => {
   const testimonials = [
@@ -22,6 +23,29 @@ const Testimonials: React.FC = () => {
     }
   ];
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto">
@@ -33,11 +57,18 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-gradient-to-br from-blue-900/20 to-transparent p-8 rounded-2xl border border-blue-bright/20 hover:border-blue-bright/40 transition-all duration-300 backdrop-blur-sm"
+              variants={itemVariants}
+              className="bg-gradient-to-br from-blue-900/20 to-transparent p-8 rounded-2xl border border-blue-bright/20 hover:border-blue-bright/40 transition-all duration-300 backdrop-blur-sm shadow-xl shadow-blue-bright/10"
             >
               {/* Profile */}
               <div className="flex items-center gap-4 mb-6">
@@ -60,9 +91,9 @@ const Testimonials: React.FC = () => {
               <p className="text-white/70 leading-relaxed">
                 {testimonial.content}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,34 +1,64 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import logo from '../../assets/logo.png'; // Assuming your logo is named logo.png and is in the assets folder
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("home"); // Track active link
-  // to navigate one route to another make sure to use this
+  const [activeLink, setActiveLink] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false); // 👈 New state for scroll detection
   const navigate = useNavigate();
+  const location = useLocation();
+
   const navLinks = [
-    { id: " ", label: "Home" },
+    { id: "home", label: "Home", path: "/" },
     { id: "about", label: "About Us" },
     { id: "services", label: "Services" },
     { id: "project", label: "Projects" },
   ];
 
+  // 🖱️ Scroll Effect: Sets isScrolled to true when scrolled past 10px
+  useEffect(() => {
+    const handleScroll = () => {
+      // Set isScrolled based on vertical scroll position
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    // Attach the event listener when the component mounts
+    window.addEventListener("scroll", handleScroll);
+    // Remove the event listener when the component unmounts (cleanup)
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); // Empty dependency array means this runs only on mount and unmount
+
+  useEffect(() => {
+    // Handle root path explicitly for 'home'
+    if (location.pathname === '/') {
+      setActiveLink('home');
+    } else {
+      setActiveLink(location.pathname.substring(1));
+    }
+  }, [location]);
+
+  // 🎨 Base Tailwind classes that change on scroll
+  const headerBaseClasses = "fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out";
+  const scrolledHeaderClasses = "bg-white border-b border-gray-200 shadow-md"; // White background, border, and shadow when scrolled
+  const initialHeaderClasses = "bg-navy-dark/95 backdrop-blur-sm border-b border-white/10"; // Initial dark background
+  
+  const initialTextClasses = "text-white"; // Initial text color (white)
+  const scrolledTextClasses = "text-blue-600"; // Scrolled text color (blue)
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-navy-dark/95 backdrop-blur-sm border-b border-white/10">
+    <header className={`${headerBaseClasses} ${isScrolled ? scrolledHeaderClasses : initialHeaderClasses}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-bright rounded-full flex items-center justify-center">
-              <svg
-                className="w-5 h-5 text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z" />
-              </svg>
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
+            <img src={logo} alt="Yonile Logo" className="h-12 w-auto" />
+            <div className="flex flex-col items-start">
+              <span className={`text-xl font-bold transition-colors ${isScrolled ? scrolledTextClasses : initialTextClasses}`}>YONILE</span>
+              {/* Note: Kept the horizontal line color constant for simplicity, adjust if needed */}
+              <div className="w-full h-px bg-blue-400 my-0.5"></div>
+              <span className={`text-xs transition-colors ${isScrolled ? "text-gray-600" : "text-white/70"}`}>Communications</span> {/* Changed secondary text color too */}
             </div>
-            <span className="text-xl font-bold text-white">Yonile</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -36,12 +66,18 @@ const Header: React.FC = () => {
             {navLinks.map((link) => (
               <a
                 key={link.id}
-                href={`/${link.id}`}
-                onClick={() => setActiveLink(link.id)}
-                className={`text-sm font-medium transition-colors ${
+                href={`/${link.path || link.id}`}
+                onClick={(e) => {
+                  const path = link.path || `/${link.id}`;
+                  e.preventDefault();
+                  navigate(path);
+                }}
+                className={`text-sm font-medium transition-colors px-3 py-2 rounded-full ${
                   activeLink === link.id
-                    ? "text-blue-400" // Active link color
-                    : "text-white/80 hover:text-white"
+                    ? "bg-blue-bright/10 text-blue-bright" // Active link style remains consistent
+                    : isScrolled 
+                      ? "text-blue-600 hover:text-blue-800 hover:bg-blue-100" // Blue text when scrolled
+                      : "text-white/80 hover:text-white hover:bg-white/5" // White text initially
                 }`}
               >
                 {link.label}
@@ -49,14 +85,14 @@ const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button - Note: Kept CTA button color consistent for visual pop, adjust if needed */}
           <button onClick={()=>{navigate("/contact")}} className="hidden md:block bg-blue-bright hover:bg-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105">
             Contact
           </button>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Changes color on scroll */}
           <button
-            className="md:hidden text-white"
+            className={`md:hidden transition-colors ${isScrolled ? scrolledTextClasses : initialTextClasses}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <svg
@@ -84,22 +120,26 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Note: Adjusted background and text color for mobile menu when scrolled */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/10">
+          <div className={`md:hidden py-4 border-t transition-colors ${isScrolled ? "border-gray-200" : "border-white/10"} ${isScrolled ? "bg-white" : "bg-navy-dark"}`}>
             <nav className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.id}
-                  href={`#${link.id}`}
-                  onClick={() => {
-                    setActiveLink(link.id);
+                  href={`/${link.path || link.id}`}
+                  onClick={(e) => {
+                    const path = link.path || `/${link.id}`;
+                    e.preventDefault();
+                    navigate(path);
                     setMobileMenuOpen(false);
                   }}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`text-sm font-medium transition-colors px-3 py-2 rounded-md ${
                     activeLink === link.id
-                      ? "text-blue-400"
-                      : "text-white/80 hover:text-white"
+                      ? "bg-blue-bright/10 text-blue-bright"
+                      : isScrolled
+                        ? "text-blue-600 hover:text-blue-800" // Blue text when scrolled
+                        : "text-white/80 hover:text-white" // White text initially
                   }`}
                 >
                   {link.label}

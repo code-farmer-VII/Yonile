@@ -13,7 +13,6 @@ const Header: React.FC = () => {
     { id: "home", label: "Home", path: "/" },
     { id: "about", label: "About Us" },
     { id: "services", label: "Services" },
-    { id: "project", label: "Projects" },
   ];
 
   // 🖱️ Scroll Effect: Sets isScrolled to true when scrolled past 10px

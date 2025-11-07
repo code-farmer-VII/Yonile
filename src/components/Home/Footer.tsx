@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
     Home: "/",
     About: "/about",
     Services: "/services",
-    "Contact Us": "/contact-us",
+    "Contact Us": "/contact",
   };
 
   const location = useLocation();

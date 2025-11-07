@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from '../../assets/logo.png'; // Assuming your logo is named logo.png and is in the assets folder
+import logo from '../../assets/Logo.png'; // Assuming your logo is named logo.png and is in the assets folder
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

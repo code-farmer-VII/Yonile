@@ -66,7 +66,7 @@ export default function WhyChoose() {
             Why Choose <span className="text-blue-bright">Yonile</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Think of us as more than an agency — we're your growth partners.
+            Think of us as more than an agency we're your growth partners.
           </p>
         </motion.div>
 

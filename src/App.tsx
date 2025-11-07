@@ -5,7 +5,7 @@ import Footer from "./components/Home/Footer";
 import Header from "./components/Home/Header";
 import About from './pages/About';
 import Services from './pages/Services';
-import Project from './pages/Project';
+// import Project from './pages/Project';
 import ProjectDetail from './pages/ProjectDetail';
 import Contact from './pages/Contact';
 export default function App() {
